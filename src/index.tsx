@@ -1,5 +1,19 @@
 import { NativeModules, Platform } from 'react-native';
 
+type Options = {
+  savedPaymentMethods?: {
+    alias: string;
+    paymentMethod: string;
+    ccNumber?: string;
+    expiryMonth?: number;
+    expiryYear?: number;
+    cardHolder?: string;
+  }[];
+  isTesting: boolean;
+  isUseCertificatePinning: boolean;
+  appCallbackScheme?: string;
+};
+
 const LINKING_ERROR =
   `The package 'react-native-datatrans' doesn't seem to be linked. Make sure: \n\n` +
   Platform.select({ ios: "- You have run 'pod install'\n", default: '' }) +
@@ -17,6 +31,13 @@ const Datatrans = NativeModules.Datatrans
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
+export function multiply(a: any, b: any): Promise<any> {
   return Datatrans.multiply(a, b);
+}
+
+export function initDatatrans(
+  mobileToken: string,
+  options?: Options
+): Promise<any> {
+  return Datatrans.initDatatrans(mobileToken, options);
 }
