@@ -1,4 +1,9 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.datatrans">
-
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.datatrans">
+  <queries>
+    <intent>
+      <action android:name="ch.twint.action.TWINT_PAYMENT" />
+      <category android:name="android.intent.category.BROWSABLE" />
+      <data android:scheme="twint" />
+    </intent>
+  </queries>
 </manifest>

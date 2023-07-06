@@ -4,7 +4,25 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
+
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ch.datatrans.payment.api.Transaction;
 import ch.datatrans.payment.api.TransactionListener;
 import ch.datatrans.payment.api.TransactionRegistry;
@@ -14,19 +32,6 @@ import ch.datatrans.payment.paymentmethods.CardExpiryDate;
 import ch.datatrans.payment.paymentmethods.PaymentMethodType;
 import ch.datatrans.payment.paymentmethods.SavedCard;
 import ch.datatrans.payment.paymentmethods.SavedPaymentMethod;
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableMap;
-import java.util.ArrayList;
-import java.util.List;
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 public class DatatransModule extends ReactContextBaseJavaModule {
 
@@ -164,7 +169,7 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           Log.d(
             "-----savedPaymentMethod",
             "-----savedPaymentMethod" +
-            String.valueOf(transactionSuccess.getSavedPaymentMethod())
+              String.valueOf(transactionSuccess.getSavedPaymentMethod())
           );
           data.putString(
             "-----------savedPaymentMethod: ",
@@ -182,7 +187,7 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           Log.d(
             "-----paymentMethodType",
             "----------paymentMethodType: " +
-            transactionSuccess.getPaymentMethodType().getIdentifier()
+              transactionSuccess.getPaymentMethodType().getIdentifier()
           );
           data.putString(
             "paymentMethodType",
@@ -205,6 +210,10 @@ public class DatatransModule extends ReactContextBaseJavaModule {
       };
       transaction.setListener(transactionListener); // this refers to Android's Activity
       transaction.getOptions().setTesting(options.getBoolean("isTesting"));
+      transaction
+        .getOptions()
+        .setAppCallbackScheme(options.getString("appCallbackScheme"));
+
       transaction
         .getOptions()
         .setUseCertificatePinning(
