@@ -7,13 +7,15 @@
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
-        <data android:scheme="com.datatransexample.dtpl" />
       </intent-filter>
-
     </activity>
 
   </application>
   <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:scheme="mailto"/>
+    </intent>
     <intent>
       <action android:name="ch.twint.action.TWINT_PAYMENT" />
       <category android:name="android.intent.category.BROWSABLE" />

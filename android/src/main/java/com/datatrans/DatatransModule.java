@@ -93,7 +93,8 @@ public class DatatransModule extends ReactContextBaseJavaModule {
         for (int i = 0; i < savedPaymentMethods.size(); i++) {
           ReadableMap spm;
           spm = savedPaymentMethods.getMap(i);
-          CardExpiryDate ced = new CardExpiryDate(06, 2025);
+          Log.d("-Payment Method:", "------------------Payment Method: " + spm);
+          CardExpiryDate ced = new CardExpiryDate(spm.getInt("expiryMonth"), spm.getInt("expiryYear"));
           SavedCard ct = new SavedCard(
             PaymentMethodType.valueOf(spm.getString("paymentMethod")),
             spm.getString("alias"),
@@ -103,10 +104,11 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           );
           Log.d(
             "------ Payment Method: ",
-            "------ Payment Method: " + savedPaymentMethods.size()
+            "------ Payment Methods Size: " + savedPaymentMethods.size()
           );
           paymentMethodTypes.add(ct);
         }
+        Log.d("Payment Method", "-----Saved Payment Methods" + paymentMethodTypes);
         transaction =
           new Transaction(
             mobileToken,
