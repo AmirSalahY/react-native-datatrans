@@ -178,6 +178,11 @@ public class DatatransModule extends ReactContextBaseJavaModule {
             "paymentMethod",
             String.valueOf(transactionSuccess.getSavedPaymentMethod())
           );
+          data.putString(
+            "paymentMethodJson",
+            String.valueOf(transactionSuccess.getSavedPaymentMethod().toJson())
+          );
+
           Log.d(
             "----------transactionId",
             "----------transactionId: " + transactionSuccess.getTransactionId()
