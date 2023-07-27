@@ -4,25 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
-
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.ReadableArray;
-import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableMap;
-
-import org.jetbrains.annotations.NotNull;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import ch.datatrans.payment.api.Transaction;
 import ch.datatrans.payment.api.TransactionListener;
 import ch.datatrans.payment.api.TransactionRegistry;
@@ -32,6 +14,19 @@ import ch.datatrans.payment.paymentmethods.CardExpiryDate;
 import ch.datatrans.payment.paymentmethods.PaymentMethodType;
 import ch.datatrans.payment.paymentmethods.SavedCard;
 import ch.datatrans.payment.paymentmethods.SavedPaymentMethod;
+import com.facebook.react.bridge.Arguments;
+import com.facebook.react.bridge.Promise;
+import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.ReactContextBaseJavaModule;
+import com.facebook.react.bridge.ReactMethod;
+import com.facebook.react.bridge.ReadableArray;
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
+import java.util.ArrayList;
+import java.util.List;
+import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class DatatransModule extends ReactContextBaseJavaModule {
 
@@ -94,7 +89,10 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           ReadableMap spm;
           spm = savedPaymentMethods.getMap(i);
           Log.d("-Payment Method:", "------------------Payment Method: " + spm);
-          CardExpiryDate ced = new CardExpiryDate(spm.getInt("expiryMonth"), spm.getInt("expiryYear"));
+          CardExpiryDate ced = new CardExpiryDate(
+            spm.getInt("expiryMonth"),
+            spm.getInt("expiryYear")
+          );
           SavedCard ct = new SavedCard(
             PaymentMethodType.valueOf(spm.getString("paymentMethod")),
             spm.getString("alias"),
@@ -108,7 +106,10 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           );
           paymentMethodTypes.add(ct);
         }
-        Log.d("Payment Method", "-----Saved Payment Methods" + paymentMethodTypes);
+        Log.d(
+          "Payment Method",
+          "-----Saved Payment Methods" + paymentMethodTypes
+        );
         transaction =
           new Transaction(
             mobileToken,
@@ -171,10 +172,10 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           Log.d(
             "-----savedPaymentMethod",
             "-----savedPaymentMethod" +
-              String.valueOf(transactionSuccess.getSavedPaymentMethod())
+            String.valueOf(transactionSuccess.getSavedPaymentMethod())
           );
           data.putString(
-            "-----------savedPaymentMethod: ",
+            "paymentMethod",
             String.valueOf(transactionSuccess.getSavedPaymentMethod())
           );
           Log.d(
@@ -189,7 +190,7 @@ public class DatatransModule extends ReactContextBaseJavaModule {
           Log.d(
             "-----paymentMethodType",
             "----------paymentMethodType: " +
-              transactionSuccess.getPaymentMethodType().getIdentifier()
+            transactionSuccess.getPaymentMethodType().getIdentifier()
           );
           data.putString(
             "paymentMethodType",
