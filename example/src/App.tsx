@@ -1,17 +1,17 @@
 import * as React from 'react';
 
-import { StyleSheet, View, Text, Pressable, TextInput } from 'react-native';
+import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { initDatatrans } from 'react-native-datatrans';
 
 export default function App() {
-  const [mobileToken, setMobileToken] = React.useState();
+  const [mobileToken, setMobileToken] = React.useState('');
   const [aliasData, setAliasData] = React.useState('');
   return (
     <View style={styles.container}>
       <TextInput
         style={{ borderColor: '#999', borderWidth: 1 }}
         placeholder="please add mobile token"
-        onChangeText={setMobileToken}
+        onChangeText={(value) => setMobileToken(value)}
       />
       <Pressable
         // disabled={mobileToken === '' ? true : false}
@@ -37,7 +37,7 @@ export default function App() {
                 ],
                 isTesting: true,
                 isUseCertificatePinning: true,
-                appCallbackScheme: 'com.datatransexample.dtpl',
+                appCallbackScheme: 'com.datatransexample.dtsdk',
               }
             )
               .then((e) => {
