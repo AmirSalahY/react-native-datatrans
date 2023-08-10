@@ -1,6 +1,6 @@
 {
   "name": "@AmirSalahY/react-native-datatrans",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "test",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
